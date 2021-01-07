@@ -18,7 +18,7 @@ const client = new Client({
 app.get("/", (req, res) => res.sendFile(`${__dirname}/index/index.html`));
 
 // Users
-app.post("/api/users/get", async (req, res) => {
+app.get("/api/users/get", async (req, res) => {
     let result = [];
     try {
         if (req.body.phone === undefined && req.body.password === undefined) {
