@@ -15,7 +15,7 @@ const client = new Client({
 });
 
 // Home
-app.get("/api", (req, res) => res.sendFile(`${__dirname}/index.html`));
+app.get("/", (req, res) => res.sendFile(`${__dirname}/index/index.html`));
 
 // Users
 app.post("/api/users/get", async (req, res) => {
@@ -54,9 +54,11 @@ async function getUser() {
     }
 }
 
-app.listen(8000, () => {
+/*app.listen(8000, () => {
     console.log(`server running on port 8000`)
-});
+});*/
+
+app.listen(process.env.PORT || 5000);
 
 start();
 
