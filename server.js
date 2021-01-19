@@ -48,7 +48,8 @@ async function authUser(id) {
 async function getUser() {
     try {
         const results = await client.query("SELECT * FROM users");
-        return results.rows[0];
+        console.log(results.rows)
+        return results.rows;
     } catch (e) {
         return [];
     }
