@@ -21,12 +21,12 @@ app.get("/", (req, res) => res.sendFile(`${__dirname}/index/index.html`));
 app.get("/api/users/get", async (req, res) => {
     let result = [];
     try {
-        if (req.body.phone === undefined && req.body.password === undefined) {
+        if (req.body.id === undefined) {
             let queryResult = await getUser();
             result.push(queryResult);
         } else {
             const reqJson = req.body;
-            let queryResult = await authUser(reqJson.phone, reqJson.password);
+            let queryResult = await authUser(reqJson.id);
             result.push(queryResult);
         }
     } catch (e) {
@@ -37,9 +37,9 @@ app.get("/api/users/get", async (req, res) => {
         res.send(JSON.stringify(result))
     }
 });
-async function authUser(phone, password) {
+async function authUser(id) {
     try {
-        const results = await client.query("SELECT * FROM users WHERE phone_number = $1 and password = $2", [phone, password]);
+        const results = await client.query("SELECT * FROM users WHERE id = $1 and password = $2", [id]);
         return results.rows[0];
     } catch (e) {
         return [];
