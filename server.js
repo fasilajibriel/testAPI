@@ -55,6 +55,31 @@ async function getUser() {
     }
 }
 
+app.delete('/api/users/delete', async (req, res) => {
+    let result = [];
+    if (req.body.id !== undefined) {
+        try {
+            let queryResult = await deleteUser(req.body.id);
+            result.push(queryResult);
+        } catch (e) {
+            result.push({success: false});
+            console.log(result)
+        } finally {
+            res.setHeader("content-type", "application/json");
+            res.send(JSON.stringify(result))
+        }
+    }
+});
+async function deleteUser(id) {
+    try {
+        const results = await client.query("DELETE FROM users where id = $1", [id]);
+        console.log(results.rows)
+        return results.rows;
+    } catch (e) {
+        return [];
+    }
+}
+
 /*app.listen(8000, () => {
     console.log(`server running on port 8000`)
 });*/
